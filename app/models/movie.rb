@@ -8,6 +8,6 @@ class Movie < ApplicationRecord
   private
 
   def validate_bookmarks
-    raise (ActiveRecord::InvalidForeignKey) unless self.bookmarks.empty?
+    raise(ActiveRecord::InvalidForeignKey) unless bookmarks.empty?
   end
 end
