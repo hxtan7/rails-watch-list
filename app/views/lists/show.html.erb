@@ -1,0 +1,32 @@
+<h3><%= @list.name %></h3>
+<br>
+<p>Add a movie comment</p>
+<%= simple_form_for [ @list, @bookmark ] do |f| %>
+  <%= f.association :movie %>
+  <%= f.input :comment %>
+  <%= f.submit "add comment", class: "btn btn-primary" %>
+<% end %>
+<br>
+<div class="card" style="width: 18rem;">
+<% @list.bookmarks.each do |bookmark| %>
+  <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title %>
+  <div class="card-body">
+  <h4><%= bookmark.movie.title.upcase %></h4>
+  <i class="far fa-star"></i> <small><%= bookmark.movie.rating %></small><br>
+  <small class="card-text"><%= bookmark.movie.overview %></small>
+  <br><br>
+  <i class="fas fa-quote-left"></i> <i><%= bookmark.comment %></i>
+  <br><br>
+  <i class="far fa-trash-alt"></i>
+  <small><%= link_to "Delete #{bookmark.movie.title}", bookmark_path(bookmark.id), method: :delete %></small>
+<% end %>
+  </div>
+</div>
+<br>
+<%= link_to "Back to all lists", lists_path %>
+<br>
+<br>
+<%= link_to "Delete #{@list.name}",
+            list_path(@list),
+            method: :delete,
+            data: { confirm: "Are you sure?" } %>
